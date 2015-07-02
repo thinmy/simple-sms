@@ -98,15 +98,4 @@ class DirectCallSMS extends AbstractSMS implements DriverInterface
         return $this->makeMessages($rawMessages->Text);
     }
 
-    /**
-     * Receives an incoming message via REST call.
-     *
-     * @param $raw
-     * @return \SimpleSoftwareIO\SMS\IncomingMessage|void
-     * @throws \RuntimeException
-     */
-    public function receive($raw)
-    {
-        throw new \RuntimeException('DirectCallSms push messages is not supported.');
-    }
 }
