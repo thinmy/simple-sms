@@ -91,11 +91,35 @@ class DirectCallSMS extends AbstractSMS implements DriverInterface
      */
     public function checkMessages(Array $options = array())
     {
-        $this->buildCall('/sms/recebimenti');
+        $this->buildCall('/sms/recebimento');
 
         $rawMessages = $this->getRequest()->json();
 
         return $this->makeMessages($rawMessages->Text);
+    }
+
+    /**
+     * Gets a single message by it's ID.
+     *
+     * @param $messageId
+     * @return IncomingMessage
+     * @throws \RuntimeException
+     */
+    public function getMessage($messageId)
+    {
+        throw new \RuntimeException('DirectCall search message is not supported.');
+    }
+
+    /**
+     * Receives an incoming message via REST call.
+     *
+     * @param $raw
+     * @return \SimpleSoftwareIO\SMS\IncomingMessage|void
+     * @throws \RuntimeException
+     */
+    public function receive($raw)
+    {
+        throw new \RuntimeException('DirectCall push messages is not supported.');
     }
 
 }
