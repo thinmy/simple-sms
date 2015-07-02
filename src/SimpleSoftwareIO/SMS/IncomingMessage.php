@@ -47,6 +47,43 @@ class IncomingMessage {
     protected $to;
 
     /**
+     * Holds the date and time.
+     *
+     * @var string
+     */
+    protected $date;
+
+    /**
+     * Sets the raw data.
+     *
+     * @param mixed $raw
+     */
+    public function setRaw($raw)
+    {
+        $this->raw = $raw;
+    }
+
+    /**
+     * Sets the message body.
+     *
+     * @param string $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * Sets the from address.
+     *
+     * @param string $from
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+    }
+
+    /**
      * Sets the raw data.
      *
      * @param mixed $raw
@@ -144,5 +181,25 @@ class IncomingMessage {
     public function to()
     {
         return $this->to;
+    }
+
+    /**
+     * Sets the date.
+     *
+     * @param string $date
+     */
+    public function setTo($date)
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * Returns the date.
+     *
+     * @return string
+     */
+    public function date()
+    {
+        return $this->date;
     }
 }
