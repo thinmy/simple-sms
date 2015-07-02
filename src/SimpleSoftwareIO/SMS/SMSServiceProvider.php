@@ -12,6 +12,7 @@
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 use SimpleSoftwareIO\SMS\Drivers\CallFireSMS;
+use SimpleSoftwareIO\SMS\Drivers\DirectCallSMS;
 use SimpleSoftwareIO\SMS\Drivers\EmailSMS;
 use SimpleSoftwareIO\SMS\Drivers\EZTextingSMS;
 use SimpleSoftwareIO\SMS\Drivers\MozeoSMS;
@@ -67,7 +68,7 @@ class SMSServiceProvider extends ServiceProvider
     /**
      * Register the correct driver based on the config file.
      *
-     * @return CallFireSMS|EmailSMS|EZTextingSMS|MozeoSMS|TwilioSMS
+     * @return CallFireSMS|DirectCallSMS|EmailSMS|EZTextingSMS|MozeoSMS|TwilioSMS
      * @throws \InvalidArgumentException
      */
     public function registerSender()
@@ -89,6 +90,9 @@ class SMSServiceProvider extends ServiceProvider
 
             case 'mozeo':
                 return $this->buildMozeo();
+
+            case 'directcall':
+                return $this->buildDirectCall();
 
             default:
                 throw new \InvalidArgumentException('Invalid SMS driver.');
@@ -132,6 +136,19 @@ class SMSServiceProvider extends ServiceProvider
         return $provider;
     }
 
+    protected function buildDirectCall()
+    {
+        $provider = new DirectCallSMS(new Client);
+
+        $auth = [
+            'access_token' => config('sms.directcall.access_token')
+        ];
+
+        $provider->buildBody($auth);
+
+        return $provider;
+    }
+
     protected function buildMozeo()
     {
         $provider = new MozeoSMS(new Client);
@@ -154,7 +171,7 @@ class SMSServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('sms', 'emailsms', 'twiliosms', 'mozeosms', 'eztextingsms', 'callfiresms');
+        return array('sms', 'emailsms', 'twiliosms', 'mozeosms', 'eztextingsms', 'callfiresms', 'directcall');
     }
 
 }
