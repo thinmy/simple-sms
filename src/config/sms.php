@@ -67,5 +67,8 @@ return [
         'companyKey' => 'Your Mozeo Company Key',
         'username' => 'Your Mozeo Username',
         'password' => 'Your Mozeo Password'
+    ],
+    'directcall' => [
+        'access_token' => 'You DirectCall access_token'
     ]
 ];
