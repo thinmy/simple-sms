@@ -22,13 +22,21 @@ class DirectCallSMS extends AbstractSMS implements DriverInterface
     protected $apiBase = 'https://api.directcallsoft.com';
 
     /**
+    * The Guzzle HTTP Client
+    *
+    * @var \GuzzleHttp\Client
+    *
+    */
+    protected $client;
+
+    /**
      * Create the CallFire instance.
      *
      * @param accessToken
      */
-    public function __construct($accessToken)
+    public function __construct(Client $client)
     {
-        $this->accessToken = $accessToken;
+        $this->client = $client;
     }
 
     /**
@@ -44,7 +52,6 @@ class DirectCallSMS extends AbstractSMS implements DriverInterface
         $composeMessage = $message->composeMessage();
 
         $data = [
-            'access_token' => $this->accessToken,
             'origem' => $from,
             'destino' => $to,
             'tipo' => 'texto',
